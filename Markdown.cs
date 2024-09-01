@@ -1,4 +1,4 @@
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace Markdown_TestProject
 {
@@ -47,10 +47,12 @@ namespace Markdown_TestProject
                 {
                     var itemContent = ParseText(markdown.Substring(1).Trim(), true);
                     var result = Wrap(itemContent, "li");
+
                     inListAfter = true;
                     return inList ? result : $"<ul>{result}";
                 }
-                
+
+                // Liste kapalıysa, bir paragraf döndür
                 if (inList)
                 {
                     inListAfter = false;
@@ -59,7 +61,10 @@ namespace Markdown_TestProject
 
                 inListAfter = false;
                 return ParseText(markdown, false);
-        }
+            }
+
+
+
 
 
             private static string ParseParagraph(string markdown, bool list, out bool inListAfter)
@@ -76,10 +81,11 @@ namespace Markdown_TestProject
                 }
             }
 
-
-             private static string ParseLine(string markdown, bool list, out bool inListAfter)
-             {
+            private static string ParseLine(string markdown, bool list, out bool inListAfter)
+            {
                 string result = "";
+
+
                 result = ParseHeader(markdown, list, out inListAfter);
                 if (result != null) return result;
 
@@ -91,8 +97,13 @@ namespace Markdown_TestProject
 
                 throw new ArgumentException("Invalid markdown");
 
-             }
-            public static string Parse(string markdown)
+            }
+
+    
+
+
+
+        public static string Parse(string markdown)
             {
                 var lines = markdown.Split('\n');
                 var result = "";
@@ -106,7 +117,10 @@ namespace Markdown_TestProject
 
                 if (inList) result += "</ul>";
                 return result;
+
             }
+
+
             private static int GetHeaderLevel(string markdown)
             {
                 int level = 0;

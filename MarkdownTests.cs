@@ -79,9 +79,11 @@ namespace Markdown_TestProject
         [Fact]
         public void With_a_little_bit_of_everything()
         {
-            var markdown = "# Header!\n __Bold Item__\n _Italic Item_";
+            var markdown = "# Header!\n" + "* __Bold Item__\n" + "* _Italic Item_";
             var expected = "<h1>Header!</h1><ul><li><strong>Bold Item</strong></li><li><em>Italic Item</em></li></ul>";
-            Assert.Equal(expected, Markdown.Parse(markdown));
+
+            var result = Markdown.Parse(markdown);
+            Assert.Equal(expected, result);
         }
 
 
